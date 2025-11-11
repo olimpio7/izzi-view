@@ -1,17 +1,76 @@
+cat > index.html << 'EOF'
 <!DOCTYPE html>
 <html lang="pt-BR">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Projeto Web Básico</title>
-    <link rel="stylesheet" href="css/styles.css" />
-  </head>
-  <body>
-    <main>
-      <h1 id="main-title">Olá, Mundo!</h1>
-      <button id="toggle-color">Mudar Cor</button>
-    </main>
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>IzziView - Catálogo de Filmes e Séries</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body class="bg-gray-50 text-gray-900 min-h-screen flex flex-col">
+  <header class="bg-white border-b sticky top-0 z-40">
+    <nav class="container mx-auto px-4 py-4 flex items-center justify-between">
+      <a href="index.html" class="text-2xl font-extrabold text-sky-600">IzziView</a>
+      <div class="flex items-center gap-4">
+        <a class="text-sm hover:text-sky-600" href="about.html">Sobre</a>
+      </div>
+    </nav>
+  </header>
 
-    <script src="js/script.js" defer></script>
-  </body>
+  <main class="flex-1 container mx-auto px-4 py-6">
+    <h1 class="text-2xl sm:text-3xl font-semibold mb-4">Catálogo</h1>
+
+    <section class="mb-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+      <div class="flex items-center gap-3">
+        <label for="genre" class="font-medium">Gênero</label>
+        <select id="genre" class="ml-2 border rounded p-2 bg-white"></select>
+
+        <label for="content-type" class="font-medium sr-only">Tipo</label>
+        <select id="content-type" class="ml-2 border rounded p-2 bg-white">
+          <option value="all">Todos</option>
+          <option value="movie">Filmes</option>
+          <option value="tv">Séries</option>
+        </select>
+      </div>
+
+      <div class="flex items-center gap-3">
+        <label for="sort" class="font-medium">Ordenar por</label>
+        <select id="sort" class="ml-2 border rounded p-2 bg-white">
+          <option value="popularity.desc">Mais populares</option>
+          <option value="vote_average.desc">Mais bem avaliados</option>
+        </select>
+      </div>
+    </section>
+
+    <section id="movies-section" aria-live="polite">
+      <div id="movies-container" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4"></div>
+
+      <div id="loading" class="hidden justify-center mt-10">
+        <div role="status" class="flex flex-col items-center">
+          <svg class="animate-spin h-12 w-12" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"></path></svg>
+          <span class="text-sm mt-2 text-gray-600">Carregando...</span>
+        </div>
+      </div>
+
+      <div id="error-message" class="hidden mt-6"></div>
+    </section>
+
+    <section class="mt-8 flex items-center justify-center">
+      <div id="pagination-bottom" class="flex items-center gap-2"></div>
+    </section>
+  </main>
+
+  <footer class="bg-white border-t py-4 text-center text-sm">
+    <p>Desenvolvido por Olimpio Carvalho e Wellyson Santos — Programação Web UESPI 2025</p>
+  </footer>
+
+<script type="module">
+import { initRestoreState } from './js/state.js';
+initRestoreState();
+</script>
+
+<script type="module" src="js/main.js"></script>
+</body>
 </html>
+EOF

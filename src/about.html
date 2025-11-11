@@ -1,0 +1,37 @@
+cat > about.html << 'EOF'
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>IzziView - Sobre</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="bg-gray-50 text-gray-900 min-h-screen flex flex-col">
+  <header class="bg-white border-b sticky top-0 z-40">
+    <nav class="container mx-auto px-4 py-4 flex items-center justify-between">
+      <a href="index.html" class="text-2xl font-extrabold text-sky-600">IzziView</a>
+    </nav>
+  </header>
+
+  <main class="flex-1 container mx-auto px-4 py-6">
+    <h1 class="text-3xl font-semibold mb-4">Sobre a equipe</h1>
+    <section class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+      <div class="bg-white rounded-lg p-4 shadow">
+        <h2 class="font-bold text-lg">Olimpio Carvalho</h2>
+        <p class="text-sm text-gray-600">Função: Backend / Integração com API</p>
+      </div>
+      <div class="bg-white rounded-lg p-4 shadow">
+        <h2 class="font-bold text-lg">Wellyson Santos</h2>
+        <p class="text-sm text-gray-600">Função: Frontend / UI/UX</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="bg-white border-t py-4 text-center text-sm">
+    <p>Desenvolvido por Olimpio Carvalho e Wellyson Santos — Programação Web UESPI 2025</p>
+  </footer>
+</body>
+</html>
+EOF

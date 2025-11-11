@@ -1,7 +1,40 @@
-const title = document.getElementById('main-title')
-const toggleColorButton = document.getElementById('toggle-color')
+export const API_KEY = 'e7524b376bd8a49424af25b4230f87b2';
+export const BASE_URL = 'https://api.themoviedb.org/3';
+export const IMAGE_BASE_URL = 'https://image.tmdb.org/t/p/w500';
 
-toggleColorButton.addEventListener('click', () => {
-  const currentColor = title.style.color
-  title.style.color = currentColor === 'blue' ? '#333' : 'blue'
-})
+async function safeFetch(url){ 
+  try {
+    const res = await fetch(url);
+    if (!res.ok) {
+      const txt = await res.text().catch(()=>res.statusText);
+      const err = new Error(`API error: ${res.status} ${txt}`);
+      err.status = res.status;
+      throw err;
+    }
+    return await res.json();
+  } catch (err) {
+    if (err.name === 'TypeError') {
+      const e = new Error('NETWORK');
+      e.isNetwork = true;
+      throw e;
+    }
+    throw err;
+  }
+}
+
+export async function getGenres(){
+  const url = `${BASE_URL}/genre/movie/list?api_key=${API_KEY}&language=pt-BR`;
+  return await safeFetch(url);
+}
+
+export async function discover(type='movie', {page=1, genre='', sortBy='popularity.desc'} = {}) {
+  const baseUrl = `${BASE_URL}/discover/${type}?api_key=${API_KEY}&language=pt-BR&sort_by=${sortBy}&page=${page}`;
+  const genreFilter = genre ? `&with_genres=${genre}` : '';
+  const url = baseUrl + genreFilter;
+  return await safeFetch(url);
+}
+
+export async function getDetails(id, type='movie'){
+  const url = `${BASE_URL}/${type}/${id}?api_key=${API_KEY}&language=pt-BR&append_to_response=credits`;
+  return await safeFetch(url);
+}

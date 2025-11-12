@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>IzziView - Detalhes</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="bg-gray-50 text-gray-900 min-h-screen flex flex-col">
+  <header class="bg-white border-b sticky top-0 z-40">
+    <nav class="container mx-auto px-4 py-4 flex items-center justify-between">
+      <a href="index.html" class="text-2xl font-extrabold text-sky-600">IzziView</a>
+    </nav>
+  </header>
+
+  <main class="flex-1 container mx-auto px-4 py-6">
+    <button id="back-btn" class="mb-4 px-3 py-2 bg-white border rounded hover:bg-gray-100">Voltar</button>
+
+    <div id="loading" class="flex justify-center">
+      <div role="status" class="flex flex-col items-center">
+        <svg class="animate-spin h-12 w-12" viewBox="0 0 24 24">
+          <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+          <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"></path>
+        </svg>
+        <span class="text-sm mt-2 text-gray-600">Carregando...</span>
+      </div>
+    </div>
+
+    <article id="details" class="hidden flex flex-col lg:flex-row gap-6">
+      <div class="w-full lg:w-1/3">
+        <div class="poster-wrapper rounded shadow overflow-hidden bg-white">
+          <img id="poster" src="" alt="">
+        </div>
+      </div>
+
+      <div class="flex-1">
+        <div class="flex items-start justify-between gap-4">
+          <div class="flex-1">
+            <h1 id="title" class="text-3xl font-bold"></h1>
+            <p id="meta" class="text-gray-600 mt-1"></p>
+          </div>
+          <div class="ml-4 flex-shrink-0">
+            <span id="rating" class="px-3 py-1 bg-yellow-100 text-yellow-800 rounded-full font-semibold text-sm"></span>
+          </div>
+        </div>
+
+        <p id="overview" class="text-gray-800 leading-relaxed mt-4 mb-4"></p>
+
+        <section id="seasons-section" class="mt-6 hidden">
+          <h3 class="font-semibold mb-3 text-xl">Temporadas</h3>
+          <div id="seasons-grid" class="grid grid-cols-1 sm:grid-cols-2 gap-4"></div>
+        </section>
+
+        <section id="cast-section" class="mt-6">
+          <h3 class="font-semibold mb-3 text-xl">Elenco</h3>
+          <div id="cast-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3"></div>
+          <div id="cast-error" class="hidden mt-2 text-sm text-red-600"></div>
+        </section>
+      </div>
+    </article>
+
+    <div id="error-message" class="hidden mt-6"></div>
+  </main>
+
+  <footer class="bg-white border-t py-4 text-center text-sm">
+    <p>Olimpio Carvalho e Wellyson Santos — Programação Web UESPI 2025</p>
+  </footer>
+
+  <script type="module" src="js/details.js"></script>
+</body>
+</html>

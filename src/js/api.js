@@ -29,8 +29,17 @@ export async function getGenres(){
 
 export async function discover(type='movie', {page=1, genre='', sortBy='popularity.desc'} = {}) {
   const baseUrl = `${BASE_URL}/discover/${type}?api_key=${API_KEY}&language=pt-BR&sort_by=${sortBy}&page=${page}`;
+  
+  const voteFilter = sortBy === 'vote_average.desc' ? '&vote_count.gte=10' : '';
   const genreFilter = genre ? `&with_genres=${genre}` : '';
-  const url = baseUrl + genreFilter;
+
+  // Filtro de 2025 
+  const dateFilter =
+    type === 'movie'
+      ? `&primary_release_date.gte=2025-01-01&primary_release_date.lte=2025-12-31`
+      : `&first_air_date.gte=2025-01-01&first_air_date.lte=2025-12-31`;
+
+  const url = baseUrl + voteFilter + genreFilter + dateFilter;
   return await safeFetch(url);
 }
 

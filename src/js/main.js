@@ -77,3 +77,78 @@ function render(list) {
     moviesContainer.appendChild(cardFrom(item, type));
   });
 }
+
+//paginação
+function buildPagination(container, current, total) {
+  container.innerHTML = '';
+  if (total <= 1) return;
+  
+  const prev = document.createElement('button'); 
+  prev.textContent = 'Anterior'; 
+  prev.className = 'pagination-btn'; 
+  prev.disabled = current === 1; 
+  prev.addEventListener('click', () => goToPage(current - 1)); 
+  container.appendChild(prev);
+  
+  const maxButtons = 7; 
+  const half = Math.floor(maxButtons / 2);
+  let start = Math.max(1, current - half); 
+  let end = Math.min(total, start + maxButtons - 1);
+  
+  if (end - start < maxButtons - 1) {
+    start = Math.max(1, end - maxButtons + 1);
+  }
+  
+  if (start > 1) { 
+    const first = document.createElement('button'); 
+    first.className = 'pagination-btn'; 
+    first.textContent = '1'; 
+    first.addEventListener('click', () => goToPage(1)); 
+    container.appendChild(first); 
+    
+    if (start > 2) { 
+      const dots = document.createElement('span'); 
+      dots.textContent = '...'; 
+      dots.className = 'px-2'; 
+      container.appendChild(dots); 
+    } 
+  }
+  
+  for (let i = start; i <= end; i++) { 
+    const btn = document.createElement('button'); 
+    btn.className = 'pagination-btn' + (i === current ? ' active' : ''); 
+    btn.textContent = String(i); 
+    btn.addEventListener('click', () => goToPage(i)); 
+    container.appendChild(btn); 
+  }
+  
+  if (end < total) { 
+    if (end < total - 1) { 
+      const dots = document.createElement('span'); 
+      dots.textContent = '...'; 
+      dots.className = 'px-2'; 
+      container.appendChild(dots); 
+    } 
+    
+    const last = document.createElement('button'); 
+    last.className = 'pagination-btn'; 
+    last.textContent = String(total); 
+    last.addEventListener('click', () => goToPage(total)); 
+    container.appendChild(last); 
+  }
+  
+  const next = document.createElement('button'); 
+  next.textContent = 'Próxima'; 
+  next.className = 'pagination-btn'; 
+  next.disabled = current === total; 
+  next.addEventListener('click', () => goToPage(current + 1)); 
+  container.appendChild(next);
+}
+
+function goToPage(n) { 
+  if (n < 1) n = 1; 
+  if (n > state.totalPages) n = state.totalPages; 
+  state.page = n; 
+  window.scrollTo({ top: 0, behavior: 'smooth' }); 
+  load(); 
+}

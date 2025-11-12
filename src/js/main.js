@@ -152,3 +152,98 @@ function goToPage(n) {
   window.scrollTo({ top: 0, behavior: 'smooth' }); 
   load(); 
 }
+
+//filtros e carregamento
+document.getElementById('content-type').addEventListener('change', (e) => { 
+  state.content = e.target.value; 
+  state.page = 1; 
+  load(); 
+});
+
+document.getElementById('genre').addEventListener('change', (e) => { 
+  state.genre = e.target.value; 
+  state.page = 1; 
+  load(); 
+});
+
+document.getElementById('sort').addEventListener('change', (e) => { 
+  state.sortBy = e.target.value; 
+  state.page = 1; 
+  load(); 
+});
+
+async function load() {
+  showLoading(); 
+  hideError();
+  
+  try {
+    let combined = [];
+    state.totalPages = 1;
+    
+    const types = state.content === 'all' ? ['movie', 'tv'] : [state.content];
+    
+    for (const t of types) {
+      const res = await discover(t, { 
+        page: state.page, 
+        genre: state.genre, 
+        sortBy: state.sortBy 
+      });
+      
+      if (res && res.results) {
+        combined = combined.concat(res.results.map(r => ({ ...r, media_type: t })));
+      }
+      
+      if (res && res.total_pages) {
+        state.totalPages = Math.max(state.totalPages, res.total_pages);
+      }
+    }
+    
+    if (state.sortBy === 'vote_average.desc') {
+      combined = combined.filter(x => (x.vote_count || 0) >= 50);
+      combined.sort((a, b) => (b.vote_average || 0) - (a.vote_average || 0));
+    } else {
+      combined.sort((a, b) => (b.popularity || 0) - (a.popularity || 0));
+    }
+    
+    render(combined);
+    saveState(state);
+    
+    state.totalPages = Math.min(state.totalPages || 1, 500);
+    buildPagination(paginationBottom, state.page, Math.min(state.totalPages, 500));
+    
+  } catch (err) {
+    console.error(err);
+    handleApiError(err, errorMessage);
+  } finally {
+    hideLoading();
+  }
+}
+
+async function init() {
+  try {
+    const g = await getGenres();
+    const opts = ['<option value="">Todos</option>'];
+    (g.genres || []).forEach(gg => {
+      opts.push(`<option value="${gg.id}">${gg.name}</option>`);
+    });
+    document.getElementById('genre').innerHTML = opts.join('');
+    
+    const restore = window.__CINE_RESTORE;
+    if (restore) {
+      if (restore.genre) state.genre = restore.genre;
+      if (restore.content) state.content = restore.content;
+      if (restore.sortBy) state.sortBy = restore.sortBy;
+      if (restore.page) state.page = restore.page;
+      
+      document.getElementById('genre').value = state.genre || '';
+      document.getElementById('content-type').value = state.content || 'all';
+      document.getElementById('sort').value = state.sortBy || 'popularity.desc';
+    }
+  } catch (err) {
+    console.error('Erro carregar gêneros', err);
+  }
+  
+  await load();
+}
+
+init();

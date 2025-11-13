@@ -33,13 +33,17 @@ export async function discover(type='movie', {page=1, genre='', sortBy='populari
   const voteFilter = sortBy === 'vote_average.desc' ? '&vote_count.gte=10' : '';
   const genreFilter = genre ? `&with_genres=${genre}` : '';
 
-  // Filtro de 2025 
+  // Filtro de 2025
   const dateFilter =
     type === 'movie'
       ? `&primary_release_date.gte=2025-01-01&primary_release_date.lte=2025-12-31`
       : `&first_air_date.gte=2025-01-01&first_air_date.lte=2025-12-31`;
 
-  const url = baseUrl + voteFilter + genreFilter + dateFilter;
+  // Filtros de país e idioma para remover conteúdo de outros países e irrelevante
+  const countryFilter = '&with_origin_country=US|GB|CA|BR|FR|ES|IT|DE|AU|MX';
+  const languageFilter = '&with_original_language=en|pt';
+
+  const url = baseUrl + voteFilter + genreFilter + dateFilter + countryFilter + languageFilter;
   return await safeFetch(url);
 }
 

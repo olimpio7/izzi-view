@@ -28,18 +28,23 @@ export async function getGenres(){
 }
 
 export async function discover(type='movie', {page=1, genre='', sortBy='popularity.desc'} = {}) {
-  const baseUrl = `${BASE_URL}/discover/${type}?api_key=${API_KEY}&language=pt-BR&sort_by=${sortBy}&page=${page}`;
-  
-  const voteFilter = sortBy === 'vote_average.desc' ? '&vote_count.gte=10' : '';
+  // pega a data atual
+  const today = new Date().toISOString().split("T")[0];
+  let sortField = sortBy;
+  if (sortBy === 'release_date.desc') {
+    sortField = type === 'movie' ? 'primary_release_date.desc' : 'first_air_date.desc';
+  }
+
+  // filtro de datas até hoje para evitar filmes que não foram lançados
+  const dateFilter =
+    type === "movie"
+      ? `&primary_release_date.gte=2025-01-01&primary_release_date.lte=${today}`
+      : `&first_air_date.gte=2025-01-01&first_air_date.lte=${today}`;
+
   const genreFilter = genre ? `&with_genres=${genre}` : '';
 
-  // Filtro de 2025 
-  const dateFilter =
-    type === 'movie'
-      ? `&primary_release_date.gte=2025-01-01&primary_release_date.lte=2025-12-31`
-      : `&first_air_date.gte=2025-01-01&first_air_date.lte=2025-12-31`;
+  const url = `${BASE_URL}/discover/${type}?api_key=${API_KEY}&language=pt-BR&sort_by=${sortField}&page=${page}${genreFilter}${dateFilter}`;
 
-  const url = baseUrl + voteFilter + genreFilter + dateFilter;
   return await safeFetch(url);
 }
 

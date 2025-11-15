@@ -150,15 +150,15 @@ body.dark footer p {
 }
 
 .lamp-on {
-  color: #facc15;
-  /* amarelo aceso */
-  transform: scale(1.2);
+  color: #9ca3af;
+  /* Cinza (apagado) no modo escuro */
+  transform: scale(1);
 }
 
 .lamp-off {
-  color: #9ca3af;
-  /* cinza apagado */
-  transform: scale(1);
+  color: #facc15;
+  /* Amarelo (aceso) no modo claro */
+  transform: scale(1.2);
 }
 
 #toggle-dark svg {

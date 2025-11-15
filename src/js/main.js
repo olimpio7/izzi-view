@@ -22,16 +22,14 @@ let state = {
   perPage: 20
 };
 
-// ---------------------------
 // FUNÇÕES DE LOADING E ERRO
-// ---------------------------
+
 function showLoading() { loading.classList.remove('hidden'); }
 function hideLoading() { loading.classList.add('hidden'); }
 function hideError() { errorMessage.classList.add('hidden'); errorMessage.innerHTML = ''; }
 
-// ---------------------------
 // CRIAÇÃO DE CARD
-// ---------------------------
+
 function cardFrom(item, type) {
   const id = item.id;
   const title = item.title || item.name || 'Sem título';
@@ -64,9 +62,6 @@ function cardFrom(item, type) {
   return wrapper;
 }
 
-// ---------------------------
-// APLICA DARK MODE NOS CARDS
-// ---------------------------
 function applyDarkModeCard(wrapper) {
   const dark = document.body.classList.contains('dark');
   const h3 = wrapper.querySelector('h3');
@@ -74,12 +69,12 @@ function applyDarkModeCard(wrapper) {
   const badge = wrapper.querySelector('.type-badge');
 
   if (dark) {
-    wrapper.style.backgroundColor = '#1f2937'; // bg-gray-800
-    if (h3) h3.style.color = '#e5e7eb';       // gray-200
-    if (p) p.style.color = '#9ca3af';         // gray-400
+    wrapper.style.backgroundColor = '#1f2937';
+    if (h3) h3.style.color = '#e5e7eb';
+    if (p) p.style.color = '#9ca3af';
     if (badge) {
-      badge.style.backgroundColor = '#374151'; // gray-700
-      badge.style.color = '#e5e7eb';           // gray-200
+      badge.style.backgroundColor = '#374151';
+      badge.style.color = '#e5e7eb';
     }
   } else {
     wrapper.style.backgroundColor = 'white';
@@ -92,28 +87,25 @@ function applyDarkModeCard(wrapper) {
   }
 }
 
-// ---------------------------
-// APLICA DARK MODE NO RODAPÉ
-// ---------------------------
 function applyDarkModeFooter() {
   if (!footer || !footerText) return;
 
   const dark = document.body.classList.contains('dark');
 
   if (dark) {
-    footer.style.backgroundColor = '#1f2937'; // bg-gray-800
-    footer.style.borderColor = '#374151';     // border-gray-700
-    footerText.style.color = '#d1d5db';       // text-gray-300
+    footer.style.backgroundColor = '#1f2937';
+    footer.style.borderColor = '#374151';
+    footerText.style.color = '#d1d5db';
   } else {
     footer.style.backgroundColor = 'white';
-    footer.style.borderColor = '#e5e7eb';     // border padrão
-    footerText.style.color = '#374151';       // text-gray-700
+    footer.style.borderColor = '#e5e7eb';
+    footerText.style.color = '#374151';
   }
 }
 
-// ---------------------------
+
 // RENDERIZAÇÃO DE LISTA
-// ---------------------------
+
 function render(list) {
   moviesContainer.innerHTML = '';
   if (!list || list.length === 0) {
@@ -129,9 +121,9 @@ function render(list) {
   });
 }
 
-// ---------------------------
+
 // PAGINAÇÃO
-// ---------------------------
+
 function buildPagination(container, current, total) {
   container.innerHTML = '';
   if (total <= 1) return;
@@ -173,16 +165,13 @@ function goToPage(n) {
   load();
 }
 
-// ---------------------------
-// FILTROS
-// ---------------------------
+
+//FILTROS
+
 contentType.addEventListener('change', (e) => { state.content = e.target.value; state.page = 1; load(); });
 genreSelect.addEventListener('change', (e) => { state.genre = e.target.value; state.page = 1; load(); });
 sortSelect.addEventListener('change', (e) => { state.sortBy = e.target.value; state.page = 1; load(); });
 
-// ---------------------------
-// CARREGAMENTO
-// ---------------------------
 async function load() {
   showLoading();
   hideError();
@@ -216,9 +205,6 @@ async function load() {
   }
 }
 
-// ---------------------------
-// INICIALIZAÇÃO
-// ---------------------------
 async function init() {
   try {
     const g = await getGenres();
@@ -244,12 +230,6 @@ async function init() {
 
 init();
 
-// ---------------------------
-// BOTÃO DE MODO DARK
-// ---------------------------
-// ---------------------------
-// BOTÃO DE MODO DARK (SINCRONIZADO)
-// ---------------------------
 function initDarkMode() {
   const toggleBtn = document.getElementById('toggle-dark');
   if (!toggleBtn) return;
@@ -263,7 +243,7 @@ function initDarkMode() {
     if (isDark) {
       document.body.classList.add('dark');
       if (lampIcon) {
-        lampIcon.classList.add('lamp-on');
+        lampIcon.classList.add('lamp-on');    // Modo escuro = Ícone apagado (cinza)
         lampIcon.classList.remove('lamp-off');
       }
     } else {
@@ -274,15 +254,15 @@ function initDarkMode() {
       }
     }
 
-    // Atualiza todos os cards
+
     document.querySelectorAll('.movie-card').forEach(wrapper => applyDarkModeCard(wrapper));
     applyDarkModeFooter();
   }
 
-  // Aplicar modo salvo
+
   updateDarkMode();
 
-  // Escutar mudanças de outras abas/páginas
+
   window.addEventListener('storage', updateDarkMode);
 
   // Toggle dark mode
@@ -292,10 +272,10 @@ function initDarkMode() {
 
     localStorage.setItem('darkMode', newMode);
 
-    // Atualizar esta página
+
     updateDarkMode();
 
-    // Notificar outras abas
+
     window.dispatchEvent(new StorageEvent('storage', {
       key: 'darkMode',
       newValue: newMode.toString()

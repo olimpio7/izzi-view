@@ -99,6 +99,7 @@ async function init() {
 
     loading.classList.add('hidden');
     details.classList.remove('hidden');
+    details.classList.add('flex', 'flex-col', 'lg:flex-row');
     
   } catch (err) {
     console.error(err);

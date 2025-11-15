@@ -4,14 +4,24 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>IzziView - Catálogo de Filmes e Séries</title>
+<script>
+  tailwind.config = {
+    darkMode: 'class',
+    theme: {
+      extend: {},
+    }
+  }
+</script>
+<script src="https://cdn.tailwindcss.com"></script> 
 <script src="https://cdn.tailwindcss.com"></script>
 <link rel="stylesheet" href="css/style.css">
 </head>
-<body class="bg-gray-50 text-gray-900 min-h-screen flex flex-col">
+<body data-theme="light" class="min-h-screen flex flex-col">
   <header class="bg-white border-b sticky top-0 z-40">
     <nav class="container mx-auto px-4 py-4 flex items-center justify-between">
       <a href="index.html" class="text-2xl font-extrabold text-sky-600">IzziView</a>
       <div class="flex items-center gap-4">
+        <button id="toggle-dark" class="p-2 border rounded ml-4">Modo Dark</button>
         <a class="text-sm hover:text-sky-600" href="about.html">Sobre</a>
       </div>
     </nav>
@@ -61,14 +71,14 @@
   </main>
 
   <footer class="bg-white border-t py-4 text-center text-sm">
-    <p>Desenvolvido por Olimpio Carvalho e Wellyson Santos — Programação Web UESPI 2025</p>
+    <p>Olimpio Carvalho e Wellyson Santos — Programação Web UESPI 2025</p>
   </footer>
 
 <script type="module">
 import { initRestoreState } from './js/state.js';
 initRestoreState();
 </script>
-
+<script src="js/theme.js"></script>
 <script type="module" src="js/main.js"></script>
 </body>
 </html>

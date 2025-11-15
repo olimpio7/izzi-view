@@ -1,136 +1,133 @@
 :root {
-    --card-radius: 12px;
-    --color-light-bg: #ffffff;
-    --color-light-text: #111827;
-    --color-dark-bg: #121212;
-    --color-dark-text: #f3f4f6;
-    --color-accent: #0284c7;
-    --color-error-light-bg: #fff3f2;
-    --color-error-light-border: #fecaca;
-    --color-error-light-text: #b91c1c;
-    --color-error-dark-bg: #2b0000;
-    --color-error-dark-border: #7f1d1d;
-    --color-error-dark-text: #fca5a5;
+  --card-radius: 12px;
+  --color-light-bg: #ffffff;
+  --color-light-text: #111827;
+  --color-dark-bg: #121212;
+  --color-dark-text: #f3f4f6;
+  --color-accent: #0284c7;
+  --color-error-light-bg: #fff3f2;
+  --color-error-light-border: #fecaca;
+  --color-error-light-text: #b91c1c;
+  --color-error-dark-bg: #2b0000;
+  --color-error-dark-border: #7f1d1d;
+  --color-error-dark-text: #fca5a5;
 }
 
-/* =========================
-   Modo Claro (padrão)
-========================= */
+/* Modo Claro (padrão)*/
 body {
-    font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial;
-    background: var(--color-light-bg);
-    color: var(--color-light-text);
-    min-height: 100vh;
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial;
+  background: var(--color-light-bg);
+  color: var(--color-light-text);
+  min-height: 100vh;
 }
 
 .poster-wrapper {
-    aspect-ratio: 2/3;
-    max-width: 400px;
-    width: 100%;
-    margin: 0;
+  aspect-ratio: 2/3;
+  max-width: 850px;
+  width: 100%;
+  margin: 0;
 }
 
 .poster-wrapper img {
-    object-fit: contain;
-    object-position: top;
+  object-fit: contain;
+  object-position: top;
 }
 
 .truncate-2 {
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 2;
-    line-clamp: 2;
-    overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  overflow: hidden;
 }
 
 .type-badge {
-    position: absolute;
-    top: 8px;
-    left: 8px;
-    background: rgba(255, 255, 255, 0.95);
-    color: var(--color-light-text);
-    padding: 4px 8px;
-    border-radius: 999px;
-    font-size: 12px;
-    font-weight: 600;
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  background: rgba(255, 255, 255, 0.95);
+  color: var(--color-light-text);
+  padding: 4px 8px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
 }
 
 .pagination-btn {
-    padding: 8px 12px;
-    border-radius: 8px;
-    border: 1px solid #e6eef6;
-    background: white;
-    color: var(--color-light-text);
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid #e6eef6;
+  background: white;
+  color: var(--color-light-text);
 }
 
 .pagination-btn.active {
-    background: var(--color-accent);
-    color: white;
+  background: var(--color-accent);
+  color: white;
 }
 
 .pagination-btn:hover {
-    background: #eaf8ff;
-    cursor: pointer;
+  background: #eaf8ff;
+  cursor: pointer;
 }
 
 .season-card {
-    background: white;
-    border-radius: 10px;
-    padding: 12px;
-    box-shadow: 0 1px 6px rgba(13, 38, 59, 0.06);
-    color: var(--color-light-text);
+  background: white;
+  border-radius: 10px;
+  padding: 12px;
+  box-shadow: 0 1px 6px rgba(13, 38, 59, 0.06);
+  color: var(--color-light-text);
 }
 
 .error-card {
-    background: var(--color-error-light-bg);
-    border: 1px solid var(--color-error-light-border);
-    color: var(--color-error-light-text);
-    padding: 12px;
-    border-radius: 8px;
-    text-align: center;
+  background: var(--color-error-light-bg);
+  border: 1px solid var(--color-error-light-border);
+  color: var(--color-error-light-text);
+  padding: 12px;
+  border-radius: 8px;
+  text-align: center;
 }
 
 select {
-    background: white;
-    color: var(--color-light-text);
-    border: 1px solid #ccc;
+  background: white;
+  color: var(--color-light-text);
+  border: 1px solid #ccc;
 }
 
-/* =========================
-   Modo Dark
-========================= */
+/* Modo Dark */
 body.dark {
-    background: var(--color-dark-bg);
-    color: var(--color-dark-text);
+  background: var(--color-dark-bg);
+  color: var(--color-dark-text);
 }
 
 body.dark .season-card,
 body.dark .pagination-btn {
-    background: #1f1f1f;
-    color: var(--color-dark-text);
-    border: 1px solid #333;
+  background: #1f1f1f;
+  color: var(--color-dark-text);
+  border: 1px solid #333;
 }
 
 body.dark .error-card {
-    background: var(--color-error-dark-bg);
-    border: 1px solid var(--color-error-dark-border);
-    color: var(--color-error-dark-text);
+  background: var(--color-error-dark-bg);
+  border: 1px solid var(--color-error-dark-border);
+  color: var(--color-error-dark-text);
 }
 
 body.dark .type-badge {
-    background: rgba(55, 65, 81, 0.8);
-    color: var(--color-dark-text);
+  background: rgba(55, 65, 81, 0.8);
+  color: var(--color-dark-text);
 }
 
 body.dark select {
-    background: #1f1f1f;
-    color: var(--color-dark-text);
-    border: 1px solid #444;
+  background: #1f1f1f;
+  color: var(--color-dark-text);
+  border: 1px solid #444;
 }
+
 body.dark header {
-    background: #1f1f1f;
-    border-color: #333;
-    color: var(--color-dark-text);
+  background: #1f1f1f;
+  border-color: #333;
+  color: var(--color-dark-text);
 }
 
 body,
@@ -140,16 +137,12 @@ header,
 .error-card,
 .type-badge,
 select {
-    transition: background 0.3s, color 0.3s, border-color 0.3s;
+  transition: background 0.3s, color 0.3s, border-color 0.3s;
 }
-/* Títulos dos filmes no modo dark */
+
 body.dark .season-card h3,
 body.dark .season-card .truncate-2 {
-    color: #e5e7eb; /* cinza claro, visível sobre fundo escuro */
-}
-body.dark footer {
-  background-color: #1f2937 !important;
-  border-color: #374151 !important;
+  color: #e5e7eb;
 }
 
 body.dark footer p {
@@ -157,15 +150,147 @@ body.dark footer p {
 }
 
 .lamp-on {
-  color: #facc15; /* amarelo aceso */
+  color: #facc15;
+  /* amarelo aceso */
   transform: scale(1.2);
 }
 
 .lamp-off {
-  color: #9ca3af; /* cinza apagado */
+  color: #9ca3af;
+  /* cinza apagado */
   transform: scale(1);
 }
 
 #toggle-dark svg {
   transition: color 0.3s, transform 0.3s;
+}
+
+/*Modo Dark - Página de Detalhes*/
+
+body.dark main {
+  background: var(--color-dark-bg);
+  color: var(--color-dark-text);
+}
+
+body.dark #back-btn {
+  background: #1f2937;
+  border-color: #374151;
+  color: var(--color-dark-text);
+}
+
+body.dark #back-btn:hover {
+  background: #374151;
+}
+
+body.dark .poster-wrapper {
+  background: #1f2937;
+  border: 1px solid #374151;
+}
+
+body.dark #rating {
+  background: #374151;
+  color: #fbbf24;
+}
+
+body.dark #meta {
+  color: #d1d5db;
+}
+
+body.dark #overview {
+  color: #e5e7eb;
+}
+
+body.dark .season-card {
+  background: #1f2937;
+  border: 1px solid #374151;
+  color: var(--color-dark-text);
+}
+
+body.dark .season-card .text-gray-600 {
+  color: #9ca3af !important;
+}
+
+body.dark .season-card .text-gray-500 {
+  color: #6b7280 !important;
+}
+
+body.dark .bg-white {
+  background: #1f2937 !important;
+}
+
+body.dark .text-gray-600 {
+  color: #9ca3af !important;
+}
+
+body.dark .text-gray-800 {
+  color: #e5e7eb !important;
+}
+
+body.dark .text-gray-900 {
+  color: #f9fafb !important;
+}
+
+
+body.dark #cast-grid>div {
+  background: #1f2937;
+  border: 1px solid #374151;
+}
+
+body.dark #cast-grid .text-gray-500 {
+  color: #9ca3af !important;
+}
+
+
+body.dark #loading .text-gray-600 {
+  color: #9ca3af !important;
+}
+
+
+body.dark h3 {
+  color: #f3f4f6;
+}
+
+
+body.dark footer {
+  background: #1f2937 !important;
+  border-color: #374151 !important;
+  color: #d1d5db !important;
+}
+
+
+body.dark #back-btn:hover {
+  background: #374151;
+}
+
+body.dark #cast-grid>div:hover {
+  background: #374151;
+  transform: translateY(-2px);
+
+}
+
+
+#details,
+.poster-wrapper,
+#cast-grid>div,
+.season-card,
+#back-btn {
+  transition: all 0.3s ease;
+}
+
+/* Ajustes específicos para texto em modo escuro */
+body.dark .text-sm {
+  color: #e5e7eb;
+}
+
+body.dark .text-xs {
+  color: #9ca3af;
+}
+
+
+body.dark main * {
+  border-color: #374151;
+}
+
+body.dark #loading svg {
+  color: #6b7280;
 }

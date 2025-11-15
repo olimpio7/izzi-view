@@ -13,13 +13,13 @@ const paginationBottom = document.getElementById('pagination-bottom');
 const footer = document.getElementById('footer');
 const footerText = document.getElementById('footer-text');
 
-let state = { 
-  page: 1, 
-  totalPages: 1, 
-  genre: '', 
-  content: 'all', 
-  sortBy: 'popularity.desc', 
-  perPage: 20 
+let state = {
+  page: 1,
+  totalPages: 1,
+  genre: '',
+  content: 'all',
+  sortBy: 'popularity.desc',
+  perPage: 20
 };
 
 // ---------------------------
@@ -73,19 +73,19 @@ function applyDarkModeCard(wrapper) {
   const p = wrapper.querySelector('p');
   const badge = wrapper.querySelector('.type-badge');
 
-  if(dark) {
+  if (dark) {
     wrapper.style.backgroundColor = '#1f2937'; // bg-gray-800
-    if(h3) h3.style.color = '#e5e7eb';       // gray-200
-    if(p) p.style.color = '#9ca3af';         // gray-400
-    if(badge) {
+    if (h3) h3.style.color = '#e5e7eb';       // gray-200
+    if (p) p.style.color = '#9ca3af';         // gray-400
+    if (badge) {
       badge.style.backgroundColor = '#374151'; // gray-700
       badge.style.color = '#e5e7eb';           // gray-200
     }
   } else {
     wrapper.style.backgroundColor = 'white';
-    if(h3) h3.style.color = '';
-    if(p) p.style.color = '';
-    if(badge) {
+    if (h3) h3.style.color = '';
+    if (p) p.style.color = '';
+    if (badge) {
       badge.style.backgroundColor = '';
       badge.style.color = '';
     }
@@ -100,7 +100,7 @@ function applyDarkModeFooter() {
 
   const dark = document.body.classList.contains('dark');
 
-  if(dark) {
+  if (dark) {
     footer.style.backgroundColor = '#1f2937'; // bg-gray-800
     footer.style.borderColor = '#374151';     // border-gray-700
     footerText.style.color = '#d1d5db';       // text-gray-300
@@ -116,7 +116,7 @@ function applyDarkModeFooter() {
 // ---------------------------
 function render(list) {
   moviesContainer.innerHTML = '';
-  if(!list || list.length === 0) {
+  if (!list || list.length === 0) {
     moviesContainer.innerHTML = '<p class="col-span-full text-center">Nenhum título encontrado.</p>';
     return;
   }
@@ -134,51 +134,51 @@ function render(list) {
 // ---------------------------
 function buildPagination(container, current, total) {
   container.innerHTML = '';
-  if(total <= 1) return;
+  if (total <= 1) return;
 
-  const prev = document.createElement('button'); 
-  prev.textContent = 'Anterior'; 
-  prev.className = 'pagination-btn'; 
-  prev.disabled = current === 1; 
-  prev.addEventListener('click', () => goToPage(current - 1)); 
+  const prev = document.createElement('button');
+  prev.textContent = 'Anterior';
+  prev.className = 'pagination-btn';
+  prev.disabled = current === 1;
+  prev.addEventListener('click', () => goToPage(current - 1));
   container.appendChild(prev);
 
   const maxButtons = 7;
   const half = Math.floor(maxButtons / 2);
-  let start = Math.max(1, current - half); 
+  let start = Math.max(1, current - half);
   let end = Math.min(total, start + maxButtons - 1);
-  if(end - start < maxButtons - 1) start = Math.max(1, end - maxButtons + 1);
+  if (end - start < maxButtons - 1) start = Math.max(1, end - maxButtons + 1);
 
-  for(let i=start;i<=end;i++) {
+  for (let i = start; i <= end; i++) {
     const btn = document.createElement('button');
-    btn.className = 'pagination-btn' + (i===current?' active':'');
+    btn.className = 'pagination-btn' + (i === current ? ' active' : '');
     btn.textContent = String(i);
     btn.addEventListener('click', () => goToPage(i));
     container.appendChild(btn);
   }
 
-  const next = document.createElement('button'); 
-  next.textContent = 'Próxima'; 
-  next.className = 'pagination-btn'; 
-  next.disabled = current===total; 
-  next.addEventListener('click', () => goToPage(current+1)); 
+  const next = document.createElement('button');
+  next.textContent = 'Próxima';
+  next.className = 'pagination-btn';
+  next.disabled = current === total;
+  next.addEventListener('click', () => goToPage(current + 1));
   container.appendChild(next);
 }
 
-function goToPage(n) { 
-  if(n<1) n=1; 
-  if(n>state.totalPages) n=state.totalPages; 
-  state.page=n; 
-  window.scrollTo({top:0, behavior:'smooth'}); 
-  load(); 
+function goToPage(n) {
+  if (n < 1) n = 1;
+  if (n > state.totalPages) n = state.totalPages;
+  state.page = n;
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  load();
 }
 
 // ---------------------------
 // FILTROS
 // ---------------------------
-contentType.addEventListener('change', (e)=>{state.content=e.target.value; state.page=1; load();});
-genreSelect.addEventListener('change', (e)=>{state.genre=e.target.value; state.page=1; load();});
-sortSelect.addEventListener('change', (e)=>{state.sortBy=e.target.value; state.page=1; load();});
+contentType.addEventListener('change', (e) => { state.content = e.target.value; state.page = 1; load(); });
+genreSelect.addEventListener('change', (e) => { state.genre = e.target.value; state.page = 1; load(); });
+sortSelect.addEventListener('change', (e) => { state.sortBy = e.target.value; state.page = 1; load(); });
 
 // ---------------------------
 // CARREGAMENTO
@@ -188,29 +188,29 @@ async function load() {
   hideError();
 
   try {
-    let combined=[];
-    state.totalPages=1;
+    let combined = [];
+    state.totalPages = 1;
 
-    const types = state.content==='all'?['movie','tv']:[state.content];
-    for(const t of types){
-      const res = await discover(t,{page:state.page, genre:state.genre, sortBy:state.sortBy});
-      if(res && res.results) combined = combined.concat(res.results.map(r=>({...r, media_type:t})));
-      if(res && res.total_pages) state.totalPages = Math.max(state.totalPages, res.total_pages);
+    const types = state.content === 'all' ? ['movie', 'tv'] : [state.content];
+    for (const t of types) {
+      const res = await discover(t, { page: state.page, genre: state.genre, sortBy: state.sortBy });
+      if (res && res.results) combined = combined.concat(res.results.map(r => ({ ...r, media_type: t })));
+      if (res && res.total_pages) state.totalPages = Math.max(state.totalPages, res.total_pages);
     }
 
-    if(state.sortBy==='vote_average.desc'){
-      combined = combined.filter(x=>(x.vote_count||0)>=50);
-      combined.sort((a,b)=>(b.vote_average||0)-(a.vote_average||0));
-    } else combined.sort((a,b)=>(b.popularity||0)-(a.popularity||0));
+    if (state.sortBy === 'vote_average.desc') {
+      combined = combined.filter(x => (x.vote_count || 0) >= 50);
+      combined.sort((a, b) => (b.vote_average || 0) - (a.vote_average || 0));
+    } else combined.sort((a, b) => (b.popularity || 0) - (a.popularity || 0));
 
     render(combined);
     saveState(state);
 
-    state.totalPages = Math.min(state.totalPages||1,500);
-    buildPagination(paginationBottom,state.page,Math.min(state.totalPages,500));
-  } catch(err) {
+    state.totalPages = Math.min(state.totalPages || 1, 500);
+    buildPagination(paginationBottom, state.page, Math.min(state.totalPages, 500));
+  } catch (err) {
     console.error(err);
-    handleApiError(err,errorMessage);
+    handleApiError(err, errorMessage);
   } finally {
     hideLoading();
   }
@@ -219,25 +219,25 @@ async function load() {
 // ---------------------------
 // INICIALIZAÇÃO
 // ---------------------------
-async function init(){
-  try{
+async function init() {
+  try {
     const g = await getGenres();
     const opts = ['<option value="">Todos</option>'];
-    (g.genres||[]).forEach(gg => opts.push(`<option value="${gg.id}">${gg.name}</option>`));
+    (g.genres || []).forEach(gg => opts.push(`<option value="${gg.id}">${gg.name}</option>`));
     genreSelect.innerHTML = opts.join('');
 
     const restore = window.__CINE_RESTORE;
-    if(restore){
-      if(restore.genre) state.genre = restore.genre;
-      if(restore.content) state.content = restore.content;
-      if(restore.sortBy) state.sortBy = restore.sortBy;
-      if(restore.page) state.page = restore.page;
+    if (restore) {
+      if (restore.genre) state.genre = restore.genre;
+      if (restore.content) state.content = restore.content;
+      if (restore.sortBy) state.sortBy = restore.sortBy;
+      if (restore.page) state.page = restore.page;
 
       genreSelect.value = state.genre || '';
       contentType.value = state.content || 'all';
       sortSelect.value = state.sortBy || 'popularity.desc';
     }
-  } catch(err){ console.error('Erro carregar gêneros',err); }
+  } catch (err) { console.error('Erro carregar gêneros', err); }
 
   await load();
 }
@@ -247,25 +247,61 @@ init();
 // ---------------------------
 // BOTÃO DE MODO DARK
 // ---------------------------
-const toggleBtn = document.getElementById('toggle-dark');
+// ---------------------------
+// BOTÃO DE MODO DARK (SINCRONIZADO)
+// ---------------------------
+function initDarkMode() {
+  const toggleBtn = document.getElementById('toggle-dark');
+  if (!toggleBtn) return;
 
-if(toggleBtn){
-  toggleBtn.addEventListener('click', () => {
-    document.body.classList.toggle('dark');
+  const lampIcon = toggleBtn.querySelector('svg');
 
-    // Atualiza cards
+  // Função para aplicar modo escuro
+  function updateDarkMode() {
+    const isDark = localStorage.getItem('darkMode') === 'true';
+
+    if (isDark) {
+      document.body.classList.add('dark');
+      if (lampIcon) {
+        lampIcon.classList.add('lamp-on');
+        lampIcon.classList.remove('lamp-off');
+      }
+    } else {
+      document.body.classList.remove('dark');
+      if (lampIcon) {
+        lampIcon.classList.remove('lamp-on');
+        lampIcon.classList.add('lamp-off');
+      }
+    }
+
+    // Atualiza todos os cards
     document.querySelectorAll('.movie-card').forEach(wrapper => applyDarkModeCard(wrapper));
+    applyDarkModeFooter();
+  }
 
-    localStorage.setItem('theme', document.body.classList.contains('dark') ? 'dark' : 'light');
+  // Aplicar modo salvo
+  updateDarkMode();
+
+  // Escutar mudanças de outras abas/páginas
+  window.addEventListener('storage', updateDarkMode);
+
+  // Toggle dark mode
+  toggleBtn.addEventListener('click', () => {
+    const currentMode = localStorage.getItem('darkMode') === 'true';
+    const newMode = !currentMode;
+
+    localStorage.setItem('darkMode', newMode);
+
+    // Atualizar esta página
+    updateDarkMode();
+
+    // Notificar outras abas
+    window.dispatchEvent(new StorageEvent('storage', {
+      key: 'darkMode',
+      newValue: newMode.toString()
+    }));
   });
 }
 
-// ---------------------------
-// RESTAURAR TEMA SALVO
-// ---------------------------
-if(localStorage.getItem('theme') === 'dark'){
-  document.body.classList.add('dark');
-
-  // Atualiza todos os cards
-  document.querySelectorAll('.movie-card').forEach(wrapper => applyDarkModeCard(wrapper));
-}
+// Inicializar dark mode
+initDarkMode();

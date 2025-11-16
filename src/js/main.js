@@ -121,33 +121,38 @@ function buildPagination(container, current, total) {
   container.innerHTML = '';
   if (total <= 1) return;
 
-  const prev = document.createElement('button');
-  prev.textContent = 'Anterior';
-  prev.className = 'pagination-btn';
-  prev.disabled = current === 1;
-  prev.addEventListener('click', () => goToPage(current - 1));
-  container.appendChild(prev);
-
-  const maxButtons = 7;
-  const half = Math.floor(maxButtons / 2);
-  let start = Math.max(1, current - half);
-  let end = Math.min(total, start + maxButtons - 1);
-  if (end - start < maxButtons - 1) start = Math.max(1, end - maxButtons + 1);
-
-  for (let i = start; i <= end; i++) {
+  function addButton(num, label = null, disabled = false) {
     const btn = document.createElement('button');
-    btn.className = 'pagination-btn' + (i === current ? ' active' : '');
-    btn.textContent = String(i);
-    btn.addEventListener('click', () => goToPage(i));
+    btn.textContent = label || num;
+    btn.className = 'pagination-btn' + (num === current ? ' active' : '');
+    btn.disabled = disabled;
+    btn.addEventListener('click', () => goToPage(num));
     container.appendChild(btn);
   }
 
-  const next = document.createElement('button');
-  next.textContent = 'Próxima';
-  next.className = 'pagination-btn';
-  next.disabled = current === total;
-  next.addEventListener('click', () => goToPage(current + 1));
-  container.appendChild(next);
+  function addDots() {
+    const span = document.createElement('span');
+    span.textContent = '...';
+    span.className = 'pagination-dots';
+    container.appendChild(span);
+  }
+
+  addButton(1);
+  if (total >= 2) addButton(2);
+  if (total >= 3) addButton(3);
+  if (current > 6) addDots();
+
+  const start = Math.max(4, current - 2);
+  const end = Math.min(total - 3, current + 2);
+
+  for (let i = start; i <= end; i++) {
+    addButton(i);
+  }
+
+  if (current < total - 5) addDots();
+  if (total > 1) {
+    addButton(total);
+  }
 }
 
 function goToPage(n) {

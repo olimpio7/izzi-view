@@ -28,7 +28,6 @@ export async function getGenres(){
 }
 
 export async function discover(type='movie', {page=1, genre='', sortBy='popularity.desc'} = {}) {
-  // pega a data atual
   const today = new Date().toISOString().split("T")[0];
   let sortField = sortBy;
   if (sortBy === 'release_date.desc') {

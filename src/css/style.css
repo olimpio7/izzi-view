@@ -151,21 +151,17 @@ body.dark footer p {
 
 .lamp-on {
   color: #9ca3af;
-  /* Cinza (apagado) no modo escuro */
   transform: scale(1);
 }
 
 .lamp-off {
   color: #facc15;
-  /* Amarelo (aceso) no modo claro */
   transform: scale(1.2);
 }
 
 #toggle-dark svg {
   transition: color 0.3s, transform 0.3s;
 }
-
-/*Modo Dark - Página de Detalhes*/
 
 body.dark main {
   background: var(--color-dark-bg);
@@ -277,7 +273,6 @@ body.dark #cast-grid>div:hover {
   transition: all 0.3s ease;
 }
 
-/* Ajustes específicos para texto em modo escuro */
 body.dark .text-sm {
   color: #e5e7eb;
 }

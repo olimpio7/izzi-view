@@ -4,7 +4,7 @@ module.exports = {
     "./*.html",
     "./js/**/*.js"
   ],
-  darkMode: 'class', // <- aqui você define dark mode via classe
+  darkMode: 'class',
   theme: {
     extend: {},
   },

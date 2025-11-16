@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 
 <head>
-  <meta charset="utf-8" />
+  <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>IzziView - Sobre</title>
   <script src="https://cdn.tailwindcss.com"></script>
@@ -14,7 +14,6 @@
     <nav class="container mx-auto px-4 py-4 flex items-center justify-between">
       <a href="index.html" class="text-2xl font-extrabold text-sky-600">IzziView</a>
 
-      <!-- BOTÃO TOGGLE DARK MODE - ADICIONE ISSO -->
       <button id="toggle-dark" class="p-2 rounded-lg hover:bg-gray-100 transition-colors">
         <svg class="w-6 h-6 lamp-off" fill="currentColor" viewBox="0 0 24 24">
           <path
@@ -42,7 +41,6 @@
     <p>Desenvolvido por Olimpio Carvalho e Wellyson Santos — Programação Web UESPI 2025</p>
   </footer>
 
-  <!-- ADICIONE ESTE SCRIPT -->
   <script>
     // Função para aplicar modo escuro
     function updateDarkMode() {
@@ -64,23 +62,18 @@
       }
     }
 
-    // Aplicar modo salvo ao carregar
     updateDarkMode();
 
-    // Escutar mudanças de outras abas/páginas
     window.addEventListener('storage', updateDarkMode);
 
-    // Toggle dark mode
     document.getElementById('toggle-dark').addEventListener('click', () => {
       const currentMode = localStorage.getItem('darkMode') === 'true';
       const newMode = !currentMode;
 
       localStorage.setItem('darkMode', newMode);
 
-      // Atualizar esta página
       updateDarkMode();
 
-      // Notificar outras abas
       window.dispatchEvent(new StorageEvent('storage', {
         key: 'darkMode',
         newValue: newMode.toString()

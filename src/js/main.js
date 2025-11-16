@@ -22,14 +22,11 @@ let state = {
   perPage: 20
 };
 
-// FUNÇÕES DE LOADING E ERRO
-
 function showLoading() { loading.classList.remove('hidden'); }
 function hideLoading() { loading.classList.add('hidden'); }
 function hideError() { errorMessage.classList.add('hidden'); errorMessage.innerHTML = ''; }
 
-// CRIAÇÃO DE CARD
-
+// criação do card
 function cardFrom(item, type) {
   const id = item.id;
   const title = item.title || item.name || 'Sem título';
@@ -104,8 +101,7 @@ function applyDarkModeFooter() {
 }
 
 
-// RENDERIZAÇÃO DE LISTA
-
+// render para a lista
 function render(list) {
   moviesContainer.innerHTML = '';
   if (!list || list.length === 0) {
@@ -120,9 +116,6 @@ function render(list) {
     moviesContainer.appendChild(card);
   });
 }
-
-
-// PAGINAÇÃO
 
 function buildPagination(container, current, total) {
   container.innerHTML = '';
@@ -166,8 +159,7 @@ function goToPage(n) {
 }
 
 
-//FILTROS
-
+// filtros
 contentType.addEventListener('change', (e) => { state.content = e.target.value; state.page = 1; load(); });
 genreSelect.addEventListener('change', (e) => { state.genre = e.target.value; state.page = 1; load(); });
 sortSelect.addEventListener('change', (e) => { state.sortBy = e.target.value; state.page = 1; load(); });
@@ -243,7 +235,7 @@ function initDarkMode() {
     if (isDark) {
       document.body.classList.add('dark');
       if (lampIcon) {
-        lampIcon.classList.add('lamp-on');    // Modo escuro = Ícone apagado (cinza)
+        lampIcon.classList.add('lamp-on');
         lampIcon.classList.remove('lamp-off');
       }
     } else {
@@ -265,7 +257,6 @@ function initDarkMode() {
 
   window.addEventListener('storage', updateDarkMode);
 
-  // Toggle dark mode
   toggleBtn.addEventListener('click', () => {
     const currentMode = localStorage.getItem('darkMode') === 'true';
     const newMode = !currentMode;
@@ -283,5 +274,4 @@ function initDarkMode() {
   });
 }
 
-// Inicializar dark mode
 initDarkMode();

@@ -90,8 +90,17 @@ async function init() {
 
     titleEl.textContent = data.title || data.name || 'Sem título';
     ratingEl.textContent = data.vote_average ? `⭐ ${data.vote_average.toFixed(1)}/10` : '—';
-    metaEl.textContent = `${type.toUpperCase()} • ${formatYear(data.release_date || data.first_air_date)}`;
-    overviewEl.textContent = safeText(data.overview);
+    const typeLabelText = type === 'movie' ? 'Filme' : 'Série';
+    metaEl.textContent = `${typeLabelText} • ${formatYear(data.release_date || data.first_air_date)}`;
+
+    // Sinopse
+    const overview = safeText(data.overview);
+
+    if (!overview || overview.trim() === "") {
+      overviewEl.textContent = "Sinopse não disponível.";
+    } else {
+      overviewEl.textContent = overview;
+    }
 
     // Temporadas 
     if (type === 'tv' && data.seasons && data.seasons.length) {

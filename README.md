@@ -41,7 +41,8 @@ tipo de conteúdo e ordenação.
 1. Clone o repositório:
 bash
 git clone https://github.com/SEU-USUARIO/izzi-view.git
-cd izzi-view
+
+    cd izzi-view
 
 Abra o arquivo index.html no navegador
 Opção 2: Usar servidor local (recomendado)
@@ -77,7 +78,6 @@ O projeto implementa filtros avançados para garantir conteúdo relevante:
 
 - Resultado: Remove automaticamente filmes indianos, asiáticos e outros conteúdos irrelevantes
 
-
 Persistência de Estado
 
 O sistema salva automaticamente os filtros selecionados usando localStorage, permitindo que o usuário retorne exatamente onde estava após navegar para a página de detalhes.
@@ -93,6 +93,3 @@ Links Úteis
 TMDb API Documentation : https://developer.themoviedb.org/docs/getting-started
 
 Tailwind CSS : https://tailwindcss.com/
-
-Licença
-Projeto acadêmico desenvolvido para fins educacionais - UESPI 2025

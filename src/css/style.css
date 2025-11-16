@@ -273,13 +273,6 @@ body.dark #back-btn:hover {
   background: #374151;
 }
 
-body.dark #cast-grid>div:hover {
-  background: #374151;
-  transform: translateY(-2px);
-
-}
-
-
 #details,
 .poster-wrapper,
 #cast-grid>div,
@@ -303,4 +296,27 @@ body.dark main * {
 
 body.dark #loading svg {
   color: #6b7280;
+}
+
+.movie-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease !important;
+  background: white;
+}
+
+.movie-card:hover {
+  transform: translateY(-5px) scale(1.03) !important;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2) !important;
+  background: #f0f4f8 !important;
+  cursor: pointer !important;
+}
+
+body.dark .movie-card {
+  background: #1f2937 !important;
+}
+
+body.dark .movie-card:hover {
+  transform: translateY(-5px) scale(1.03) !important;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5) !important;
+  background: #374151 !important;
+  cursor: pointer !important;
 }

@@ -32,7 +32,6 @@ function cardFrom(item, type) {
   const title = item.title || item.name || 'Sem título';
   const date = item.release_date || item.first_air_date || '';
   const year = formatYear(date);
-  const poster = item.poster_path ? (IMAGE_BASE_URL + item.poster_path) : 'img/no-image.png';
 
   const wrapper = document.createElement('article');
   wrapper.className = 'movie-card rounded-lg shadow hover:shadow-lg overflow-hidden cursor-pointer transition relative bg-white';
